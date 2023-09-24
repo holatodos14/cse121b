@@ -20,10 +20,10 @@ let foodElement = document.getElementById('food');
 let yearElement = document.querySelector('#year');
 
 /* Step 4 - Adding Content */
-let img_ = document.getElementsByTagName('img');
-let imageElement = img_[0].setAttribute('src', profilePicture);
-img_[0].setAttribute('alt', `${profilePicture}`);
-img_[0].setAttribute('title', `${profilePicture}`);
+let imgElement = document.querySelector('img');
+imgElement.setAttribute('src', profilePicture);
+imgElement.setAttribute('alt', profilePicture);
+imgElement.setAttribute('title', profilePicture)
 
 /* Step 5 - Array */
 let array = ['lasagna','carne asada con pastel de papa','queso helado','adobo arequipeño'];
