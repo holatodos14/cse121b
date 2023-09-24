@@ -6,7 +6,7 @@
 
 let fullName = "Marcos David Cambeiro Vargas";
 let currentYear = new Date().getFullYear(); 
-const profilePicture = 'images/me.png'
+const profilePicture = 'images/me.PNG'
 
 
 
