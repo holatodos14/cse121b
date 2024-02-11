@@ -6,18 +6,18 @@ let templeList = [];
 
 /* async displayTemples Function */
 const displayTemples = (temples) => {
-    temples.forEach (temple => {
-    let article = document.createElement("article");
-    let h3 = document.createElement("h3");
-    h3.textContent = temple.templeName;
-    let img = document.createElement("img");
-    img.setAttribute('src', temple.imageUrl);
-    img.setAttribute('alt', temple.location);
-    article.appendChild(h3);
-    article.appendChild(img);
-    templesElement.appendChild(article);
-}
-);
+    templesElement.innerHTML = ''; // Clear existing content
+    temples.forEach(temple => {
+        let article = document.createElement("article");
+        let h3 = document.createElement("h3");
+        h3.textContent = temple.templeName;
+        let img = document.createElement("img");
+        img.setAttribute('src', temple.imageUrl);
+        img.setAttribute('alt', temple.location);
+        article.appendChild(h3);
+        article.appendChild(img);
+        templesElement.appendChild(article);
+    });
 }
 
 /* async getTemples Function using fetch()*/
@@ -29,35 +29,40 @@ const getTemples = async () => {
     displayTemples(templeList);
 }
 
-
 /* reset Function */
 function reset() {
-    templesElement.remove();
+    templesElement.innerHTML = ''; // Clear the content inside the temples container
 }
 
 /* filterTemples Function */
-const filterTemples = (temples) => {
+const filterTemples = () => {
     reset();
-    let filter = document.getElementById('filtered');
+    let filter = document.getElementById('filtered').value;
+    let filteredTemples;
+
     switch (filter) {
         case "utah":
-            temples.filter(temple => temple.location.includes("Utah"));
+            filteredTemples = templeList.filter(temple => temple.location.includes("Utah"));
             break;
-        case "nonutah":
-            temples.filter(temple => temple.location.indexOf("Utah") === -1);
+        case "outsidedeof":
+            filteredTemples = templeList.filter(temple => temple.location.indexOf("Utah") === -1);
             break;
-        case "outsideof":
-            temples.filter(temple => temple.dedicated > new Date(1950, 0, 1));
+        case "old":
+            filteredTemples = templeList.filter(temple => new Date(temple.dedicated) > new Date(1950, 0, 1));
             break;
         default:
-            temples;
+            filteredTemples = templeList;
     }
+
+    displayTemples(filteredTemples);
 }
 
+/* Event Listener */
+document.querySelector("#filtered").addEventListener("change", filterTemples);
+
+// Fetch temples on page load
 getTemples();
 
-/* Event Listener */
-document.querySelector("#filtered").addEventListener("change", () => { filterTemples(templeList) });
 
 
 
