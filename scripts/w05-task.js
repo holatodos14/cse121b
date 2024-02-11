@@ -56,8 +56,9 @@ const filterTemples = (temples) => {
         case "utah":
             displayTemples(temples.filter(temple => temple.location.includes("Utah")));
             break;
-        case "nonutah":
-            displayTemples(temples.filter(temple => !temple.location.toLowerCase().indexOf("Utah") === -1));
+        case "notutah":
+            const notUtahTemples = temples.filter(temple => !temple.location.toLowerCase().includes("utah"));
+            displayTemples(notUtahTemples); // Fix the variable name here
             break;
         case "older":
             displayTemples(temples.filter(temple => new Date(temple.dedicated) < new Date(1950, 0, 1)));
